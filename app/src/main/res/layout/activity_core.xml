@@ -45,17 +45,6 @@
             android:layout_gravity="fill_horizontal|fill_vertical"
             android:gravity="center"/>
         <ImageButton
-            android:src="@drawable/ic_message_black_24dp"
-            android:onClick="switchFragment"
-            android:id="@+id/messageTabButton"
-            android:background="@drawable/tab_button_background"
-            android:layout_column="1"
-            android:layout_row="0"
-            android:layout_columnWeight="1"
-            android:layout_gravity="fill_horizontal|fill_vertical"
-            android:gravity="center"
-            />
-        <ImageButton
             android:src="@drawable/ic_notifications_black_24dp"
             android:onClick="switchFragment"
             android:id="@+id/notificationTabButton"

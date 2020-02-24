@@ -10,23 +10,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
-
 import com.example.isc.R;
 
 import java.util.List;
 
 
-public class IncludeEventAdapter extends ArrayAdapter<String> {
+public class PostLevelAdapter extends ArrayAdapter<String> {
 
     private int resourceLayout;
     private Context mContext;
-    ImageView eventCheck;
-    TextView eventName;
-    String myEvent;
-    LinearLayout eventLL;
+    ImageView departmentCheck;
+    TextView departmentName;
+    String myDepartment;
+    LinearLayout departmentLL;
 
-    public IncludeEventAdapter(Context context, int resource, List<String> items) {
+    public PostLevelAdapter(Context context, int resource, List<String> items) {
         super(context, resource, items);
         this.resourceLayout = resource;
         this.mContext = context;
@@ -40,28 +38,28 @@ public class IncludeEventAdapter extends ArrayAdapter<String> {
             LayoutInflater vi;
             vi = LayoutInflater.from(mContext);
             view = vi.inflate(resourceLayout, null);
-            IEAViewHolder holder = createViewHolderFrom(view);
+            PLAViewHolder holder = createViewHolderFrom(view);
             view.setTag(holder);
         }
 
-        final IEAViewHolder holder = (IEAViewHolder) view.getTag();
+        final PLAViewHolder holder = (PLAViewHolder) view.getTag();
 
-        myEvent = getItem(position);
+        myDepartment = getItem(position);
 
-        if(myEvent != null) {
-            holder.text.setText(myEvent);
+        if(myDepartment != null) {
+            holder.text.setText(myDepartment);
         }
-        holder.event.setOnClickListener(new View.OnClickListener() {
+        holder.departmentLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (holder.icon.getDrawable()!=null){
                     holder.text.setText(Html.fromHtml("<font color=\"#000000\">"+ holder.text.getText() +"</font>"));
                     holder.icon.setImageDrawable(null);
-                    IncludeEventActivity.includedEvents.remove(holder.text.getText().toString());
+                    PostLevelActivity.includedDepartments.remove(holder.text.getText().toString());
                 }else{
                     holder.text.setText(Html.fromHtml("<font color=\"#1976D2\">"+ holder.text.getText() +"</font>"));
                     holder.icon.setImageResource(R.drawable.ic_check_24dp);
-                    IncludeEventActivity.includedEvents.add(holder.text.getText().toString());
+                    PostLevelActivity.includedDepartments.add(holder.text.getText().toString());
                 }
             }
         });
@@ -70,23 +68,23 @@ public class IncludeEventAdapter extends ArrayAdapter<String> {
     }
 
 
-    private IEAViewHolder createViewHolderFrom(View view) {
-        eventName = view.findViewById(R.id.eventName);
-        eventCheck = view.findViewById(R.id.eventCheck);
-        eventLL = view.findViewById(R.id.eventLL);
-        return new IEAViewHolder(eventName, eventCheck, eventLL);
+    private PLAViewHolder createViewHolderFrom(View view) {
+        departmentName = view.findViewById(R.id.departmentName);
+        departmentCheck = view.findViewById(R.id.departmentCheck);
+        departmentLL = view.findViewById(R.id.departmentLL);
+        return new PLAViewHolder(departmentName, departmentCheck, departmentLL);
     }
 }
 
-class IEAViewHolder {
+class PLAViewHolder {
     final TextView text;
     final ImageView icon;
-    final LinearLayout event;
+    final LinearLayout departmentLL;
 
-    IEAViewHolder(TextView text, ImageView icon, LinearLayout event) {
+    PLAViewHolder(TextView text, ImageView icon, LinearLayout departmentLL) {
         this.text = text;
         this.icon = icon;
-        this.event = event;
+        this.departmentLL = departmentLL;
     }
 }
 

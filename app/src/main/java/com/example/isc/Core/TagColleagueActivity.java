@@ -26,6 +26,8 @@ public class TagColleagueActivity extends AppCompatActivity {
     Button tagColleagueButton;
     SearchView searchColleague;
 
+    String from;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,10 @@ public class TagColleagueActivity extends AppCompatActivity {
         );
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
+
+        if(getIntent().getStringExtra("from") != null){
+            from = getIntent().getStringExtra("from");
+        }
 
         taggedColleagues = new ArrayList<>();
         colleagues = new ArrayList<MyUser>(){{
@@ -56,13 +62,18 @@ public class TagColleagueActivity extends AppCompatActivity {
         tagColleagueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringBuilder events = new StringBuilder();
+                StringBuilder tagColleague = new StringBuilder();
                 for(int i=0; i<taggedColleagues.size(); i++){
-                    events.append("@");
-                    events.append(taggedColleagues.get(i));
-                    events.append("\n");
+                    tagColleague.append("@");
+                    tagColleague.append(taggedColleagues.get(i));
+                    tagColleague.append("\n");
                 }
-                startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("colleagues", events.toString()));
+                if(from.equals("create")){
+                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("colleagues", tagColleague.toString()));
+                }else if(from.equals("edit")){
+                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("colleagues", tagColleague.toString()));
+                }
+
             }
         });
         searchColleague = findViewById(R.id.searchColleague);
@@ -86,7 +97,11 @@ public class TagColleagueActivity extends AppCompatActivity {
                 .setMessage("Are you sure you want to discard the selection?")
                 .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
+                        if(from.equals("create")){
+                            startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
+                        }else if(from.equals("edit")){
+                            startActivity(new Intent(getApplicationContext(), EditPostActivity.class));
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.no, null)

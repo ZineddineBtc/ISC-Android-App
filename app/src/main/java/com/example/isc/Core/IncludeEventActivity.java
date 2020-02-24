@@ -24,6 +24,8 @@ public class IncludeEventActivity extends AppCompatActivity {
     Button includeEventButton;
     static ArrayList<String> includedEvents;
 
+    String from;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,10 @@ public class IncludeEventActivity extends AppCompatActivity {
         );
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
+
+        if(getIntent().getStringExtra("from") != null){
+            from = getIntent().getStringExtra("from");
+        }
 
         eventsList = new ArrayList<String>(){{
             add("INETech");
@@ -57,7 +63,11 @@ public class IncludeEventActivity extends AppCompatActivity {
                     events.append(includedEvents.get(i));
                     events.append(" ");
                 }
-                startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("event", events.toString()));
+                if (from.equals("create")){
+                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("event", events.toString()));
+                }else if(from.equals("edit")){
+                    startActivity(new Intent(getApplicationContext(), EditPostActivity.class).putExtra("event", events.toString()));
+                }
             }
         });
     }
@@ -68,7 +78,11 @@ public class IncludeEventActivity extends AppCompatActivity {
                 .setMessage("Are you sure you want to discard the selection?")
                 .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
+                        if(from.equals("create")){
+                            startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
+                        }else if(from.equals("edit")){
+                            startActivity(new Intent(getApplicationContext(), EditPostActivity.class));
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.no, null)

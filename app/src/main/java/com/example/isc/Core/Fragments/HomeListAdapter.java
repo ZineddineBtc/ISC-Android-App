@@ -33,7 +33,7 @@ public class HomeListAdapter extends ArrayAdapter<MyPost> {
     private MyPost post;
     private String text;
     private boolean textDisplayedAll;
-    private TextView posterName, posterPosition, postedText;
+    private TextView posterName, posterPosition, postedText, postEvents;
     private ImageView posterProfileImage, postedImage;
     private ImageButton postLevelButton, tagColleagueButton;
     private LinearLayout posterProfileLayout;
@@ -131,6 +131,9 @@ public class HomeListAdapter extends ArrayAdapter<MyPost> {
                     }
                 });
             }
+            if(postEvents != null){
+                postEvents.setText(post.getMyPostEvents());
+            }
         }
         holder.posterProfileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,15 +155,16 @@ public class HomeListAdapter extends ArrayAdapter<MyPost> {
         postLevelButton = view.findViewById(R.id.postLevelButtonHomeAdapter);
         tagColleagueButton = view.findViewById(R.id.tagColleagueButtonHomeAdapter);
         posterProfileLayout = view.findViewById(R.id.posterProfileLayout);
+        postEvents = view.findViewById(R.id.postEvents);
 
         return new HLAViewHolder(posterName, posterPosition, posterProfileImage,
                 postedText, postedImage, postLevelButton, tagColleagueButton,
-                posterProfileLayout);
+                posterProfileLayout, postEvents);
     }
 }
 
 class HLAViewHolder {
-    final TextView posterName, posterPosition, postedText;
+    final TextView posterName, posterPosition, postedText, postEvents;
     final ImageView posterProfileImage, postedImage;
     final ImageButton postLevelButton, tagColleagueButton;
     final LinearLayout posterProfileLayout;
@@ -168,7 +172,7 @@ class HLAViewHolder {
     HLAViewHolder(TextView posterName, TextView posterPosition, ImageView posterProfileImage,
                   TextView postedText, ImageView postedImage,
                   ImageButton postLevelButton, ImageButton tagColleagueButton,
-                  LinearLayout posterProfileLayout) {
+                  LinearLayout posterProfileLayout, TextView postEvents) {
         this.posterName = posterName;
         this.posterPosition = posterPosition;
         this.postedText = postedText;
@@ -177,5 +181,6 @@ class HLAViewHolder {
         this.postLevelButton = postLevelButton;
         this.tagColleagueButton = tagColleagueButton;
         this.posterProfileLayout = posterProfileLayout;
+        this.postEvents = postEvents;
     }
 }

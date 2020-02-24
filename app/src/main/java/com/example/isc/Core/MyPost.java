@@ -1,17 +1,28 @@
 package com.example.isc.Core;
 
 public class MyPost {
-    private String postedText, myPostLevel, myPostTagColleague;
+    private String postedText, myPostLevel, myPostTagColleague, myPostEvents;
     private int postedImage;
     private MyUser myUser;
 
+
+
     public MyPost(MyUser myUser, String postedText, int postedImage,
-                  String myPostLevel, String myPostTagColleague){
+                  String myPostLevel, String myPostTagColleague, String myPostEvents){
         this.postedText = postedText;
         this.postedImage = postedImage;
         this.myUser = myUser;
         this.myPostLevel = myPostLevel;
         this.myPostTagColleague = myPostTagColleague;
+        this.myPostEvents = myPostEvents;
+    }
+
+    public String getMyPostEvents() {
+        return myPostEvents;
+    }
+
+    public void setMyPostEvents(String myPostEvents) {
+        this.myPostEvents = myPostEvents;
     }
 
     public String getMyPostLevel() {

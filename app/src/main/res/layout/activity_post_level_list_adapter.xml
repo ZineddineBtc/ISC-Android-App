@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/level"
+        android:id="@+id/departmentLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp">
         <TextView
             android:id="@+id/departmentName"
             android:layout_width="0dp"

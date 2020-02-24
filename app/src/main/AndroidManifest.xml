@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Core.ShowUserProfileActivity"></activity>
+        <activity android:name=".Core.EditPostActivity" />
+        <activity android:name=".Core.ShowUserProfileActivity" />
         <activity android:name=".Core.TagColleagueActivity" />
         <activity android:name=".Core.IncludeEventActivity" />
         <activity android:name=".Core.PostLevelActivity" />
-        <activity android:name=".Core.MessageActivity" />
         <activity android:name=".Core.CreatePostActivity" />
         <activity
             android:name=".Core.CoreActivity"

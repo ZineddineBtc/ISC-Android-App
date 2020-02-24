@@ -1,6 +1,7 @@
-package com.example.isc.Core;
+package com.example.isc.Core.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.isc.Core.EditPostActivity;
+import com.example.isc.Core.MyPost;
 import com.example.isc.R;
 
 import java.util.List;
@@ -29,7 +32,7 @@ public class ProfilePostsListAdapter extends ArrayAdapter<MyPost> {
     private MyPost post;
     private String text;
     private boolean textDisplayedAll;
-    private TextView posterName, posterPosition, postedText;
+    private TextView posterName, posterPosition, postedText, postEvents;
     private ImageView posterProfileImage, postedImage;
     private ImageButton postLevelButton, tagColleagueButton, editProfilePostIB;
     private LinearLayout posterProfileLayout;
@@ -140,7 +143,9 @@ public class ProfilePostsListAdapter extends ArrayAdapter<MyPost> {
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()){
                                     case R.id.edit:
-
+                                        Intent intent = new Intent(getContext(), EditPostActivity.class);
+                                        intent.putExtra("position", Integer.toString(position));
+                                        getContext().startActivity(intent);
                                         break;
                                     case R.id.delete:
                                         Toast.makeText(getContext(), "delete item "+position, Toast.LENGTH_SHORT).show();
@@ -152,6 +157,9 @@ public class ProfilePostsListAdapter extends ArrayAdapter<MyPost> {
                         });
                     }
                 });
+            }
+            if(postEvents != null){
+                postEvents.setText(post.getMyPostEvents());
             }
         }
         return v;
@@ -166,15 +174,16 @@ public class ProfilePostsListAdapter extends ArrayAdapter<MyPost> {
         tagColleagueButton = view.findViewById(R.id.tagColleagueButtonHomeAdapter);
         posterProfileLayout = view.findViewById(R.id.posterProfileLayout);
         editProfilePostIB = view.findViewById(R.id.editProfilePostIB);
+        postEvents = view.findViewById(R.id.postEvents);
 
         return new PAViewHolder(posterName, posterPosition, posterProfileImage,
                 postedText, postedImage, postLevelButton, tagColleagueButton,
-                editProfilePostIB, posterProfileLayout);
+                editProfilePostIB, posterProfileLayout, postEvents);
     }
 }
 
 class PAViewHolder {
-    final TextView posterName, posterPosition, postedText;
+    final TextView posterName, posterPosition, postedText, postEvents;
     final ImageView posterProfileImage, postedImage;
     final ImageButton postLevelButton, tagColleagueButton, editProfilePostIB;
     final LinearLayout posterProfileLayout;
@@ -182,7 +191,8 @@ class PAViewHolder {
     PAViewHolder(TextView posterName, TextView posterPosition, ImageView posterProfileImage,
                   TextView postedText, ImageView postedImage,
                   ImageButton postLevelButton, ImageButton tagColleagueButton,
-                  ImageButton editProfilePostIB, LinearLayout posterProfileLayout) {
+                  ImageButton editProfilePostIB, LinearLayout posterProfileLayout,
+                 TextView postEvents) {
         this.posterName = posterName;
         this.posterPosition = posterPosition;
         this.postedText = postedText;
@@ -192,5 +202,6 @@ class PAViewHolder {
         this.tagColleagueButton = tagColleagueButton;
         this.editProfilePostIB = editProfilePostIB;
         this.posterProfileLayout = posterProfileLayout;
+        this.postEvents = postEvents;
     }
 }

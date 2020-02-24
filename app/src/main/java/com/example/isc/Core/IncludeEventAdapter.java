@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -23,6 +24,7 @@ public class IncludeEventAdapter extends ArrayAdapter<String> {
     ImageView eventCheck;
     TextView eventName;
     String myEvent;
+    LinearLayout eventLL;
 
     public IncludeEventAdapter(Context context, int resource, List<String> items) {
         super(context, resource, items);
@@ -49,8 +51,7 @@ public class IncludeEventAdapter extends ArrayAdapter<String> {
         if(myEvent != null) {
             holder.text.setText(myEvent);
         }
-
-        holder.text.setOnClickListener(new View.OnClickListener() {
+        holder.event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (holder.icon.getDrawable()!=null){
@@ -64,20 +65,6 @@ public class IncludeEventAdapter extends ArrayAdapter<String> {
                 }
             }
         });
-        holder.icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (holder.icon.getDrawable()!=null){
-                    holder.text.setText(Html.fromHtml("<font color=\"#000000\">"+ myEvent +"</font>"));
-                    holder.icon.setImageDrawable(null);
-                    IncludeEventActivity.includedEvents.remove(holder.text.getText().toString());
-                }else{
-                    holder.text.setText(Html.fromHtml("<font color=\"#1976D2\">"+ myEvent +"</font>"));
-                    holder.icon.setImageResource(R.drawable.ic_check_24dp);
-                    IncludeEventActivity.includedEvents.add(holder.text.getText().toString());
-                }
-            }
-        });
 
         return view;
     }
@@ -86,17 +73,20 @@ public class IncludeEventAdapter extends ArrayAdapter<String> {
     private IEAViewHolder createViewHolderFrom(View view) {
         eventName = view.findViewById(R.id.eventName);
         eventCheck = view.findViewById(R.id.eventCheck);
-        return new IEAViewHolder(eventName, eventCheck);
+        eventLL = view.findViewById(R.id.eventLL);
+        return new IEAViewHolder(eventName, eventCheck, eventLL);
     }
 }
 
 class IEAViewHolder {
     final TextView text;
     final ImageView icon;
+    final LinearLayout event;
 
-    IEAViewHolder(TextView text, ImageView icon) {
+    IEAViewHolder(TextView text, ImageView icon, LinearLayout event) {
         this.text = text;
         this.icon = icon;
+        this.event = event;
     }
 }
 

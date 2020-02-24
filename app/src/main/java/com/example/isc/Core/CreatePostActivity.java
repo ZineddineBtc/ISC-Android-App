@@ -1,6 +1,5 @@
 package com.example.isc.Core;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -133,11 +133,20 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
+        if (savedInstanceState!=null){
+            checkedDepartments = savedInstanceState.getString("checkedDepartments");
+        }
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("checkedDepartments", checkedDepartments);
     }
 
     public void post(View view){
-        if(cpEditText.getText().toString().length() > 0){
+        if(cpEditText.getText().toString().length()>0 || cpImage.getDrawable()!=null){
             Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_LONG).show();
         }
     }
@@ -221,19 +230,25 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     public void includeEvent(){
-        startActivity(new Intent(getApplicationContext(), IncludeEventActivity.class));
+        Intent intent = new Intent(getApplicationContext(), IncludeEventActivity.class);
+        intent.putExtra("from", "create");
+        startActivity(intent);
     }
 
     public void tagColleague(){
-        startActivity(new Intent(getApplicationContext(), TagColleagueActivity.class));
+        Intent intent = new Intent(getApplicationContext(), TagColleagueActivity.class);
+        intent.putExtra("from", "create");
+        startActivity(intent);
     }
 
     public void specifyDepartment(){
-        startActivity(new Intent(getApplicationContext(), PostLevelActivity.class));
+        Intent intent = new Intent(getApplicationContext(), PostLevelActivity.class);
+        intent.putExtra("from", "create");
+        startActivity(intent);
     }
 
     public void showPostLevel(View view){
-        if (checkedDepartments.isEmpty()) {
+        if (checkedDepartments==null) {
             checkedDepartments = "None";
         }
         new AlertDialog.Builder(this)

@@ -9,11 +9,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.isc.Core.Fragments.HomeFragment;
-import com.example.isc.Core.Fragments.MessageFragment;
 import com.example.isc.Core.Fragments.NotificationFragment;
 import com.example.isc.Core.Fragments.ProfileFragment;
 import com.example.isc.R;
@@ -22,8 +20,8 @@ import java.util.Objects;
 
 public class CoreActivity extends AppCompatActivity {
 
-    Fragment homeFragment, messageFragment, notificationFragment, profileFragment;
-    ImageButton homeTabButton, messageTabButton, notificationTabButton, profileTabButton;
+    Fragment homeFragment, notificationFragment, profileFragment;
+    ImageButton homeTabButton, notificationTabButton, profileTabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +29,11 @@ public class CoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_core);
 
         homeFragment = new HomeFragment();
-        messageFragment = new MessageFragment();
         notificationFragment = new NotificationFragment();
         profileFragment = new ProfileFragment();
 
 
         homeTabButton = findViewById(R.id.homeTabButton);
-        messageTabButton = findViewById(R.id.messageTabButton);
         notificationTabButton = findViewById(R.id.notificationTabButton);
         profileTabButton = findViewById(R.id.profileTabButton);
 
@@ -47,9 +43,6 @@ public class CoreActivity extends AppCompatActivity {
         Intent intent = getIntent();
         try{
             switch (Objects.requireNonNull(intent.getStringExtra("to"))) {
-                case "message":
-                    setMessage();
-                    break;
                 case "notification":
                     setNotification();
                     break;
@@ -69,9 +62,6 @@ public class CoreActivity extends AppCompatActivity {
         switch (buttonId){
             case R.id.homeTabButton: // home
                 setHome();
-                break;
-            case R.id.messageTabButton:// message
-                setMessage();
                 break;
             case R.id.notificationTabButton: // notification
                 setNotification();
@@ -105,27 +95,15 @@ public class CoreActivity extends AppCompatActivity {
     public void setHome(){
         openFragment(homeFragment);
         homeTabButton.setImageResource(R.drawable.ic_home_blue_24dp);
-        messageTabButton.setImageResource(R.drawable.ic_message_black_24dp);
         notificationTabButton.setImageResource(R.drawable.ic_notifications_black_24dp);
         profileTabButton.setImageResource(R.drawable.ic_person_black_24dp);
         Objects.requireNonNull(getSupportActionBar()).setTitle(
                 Html.fromHtml("<font color=\"#1976D2\"> Home </font>")
         );
     }
-    public void setMessage(){
-        openFragment(messageFragment);
-        homeTabButton.setImageResource(R.drawable.ic_home_black_24dp);
-        messageTabButton.setImageResource(R.drawable.ic_message_blue_24dp);
-        notificationTabButton.setImageResource(R.drawable.ic_notifications_black_24dp);
-        profileTabButton.setImageResource(R.drawable.ic_person_black_24dp);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(
-                Html.fromHtml("<font color=\"#1976D2\"> Message </font>")
-        );
-    }
     public void setNotification(){
         openFragment(notificationFragment);
         homeTabButton.setImageResource(R.drawable.ic_home_black_24dp);
-        messageTabButton.setImageResource(R.drawable.ic_message_black_24dp);
         notificationTabButton.setImageResource(R.drawable.ic_notifications_blue_24dp);
         profileTabButton.setImageResource(R.drawable.ic_person_black_24dp);
         Objects.requireNonNull(getSupportActionBar()).setTitle(
@@ -135,7 +113,6 @@ public class CoreActivity extends AppCompatActivity {
     public void setProfile(){
         openFragment(profileFragment);
         homeTabButton.setImageResource(R.drawable.ic_home_black_24dp);
-        messageTabButton.setImageResource(R.drawable.ic_message_black_24dp);
         notificationTabButton.setImageResource(R.drawable.ic_notifications_black_24dp);
         profileTabButton.setImageResource(R.drawable.ic_person_blue_24dp);
         Objects.requireNonNull(getSupportActionBar()).setTitle(
