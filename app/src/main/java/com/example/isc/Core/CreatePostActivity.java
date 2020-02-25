@@ -49,7 +49,7 @@ public class CreatePostActivity extends AppCompatActivity {
     TextView photoLLTextView, eventsTextView;
     public static final int PICK_IMAGE = 1;
 
-    String checkedDepartments, events ,colleagues;
+    static String checkedDepartments="none", events="", colleagues="none";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -64,19 +64,9 @@ public class CreatePostActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
 
-        Intent intent = getIntent();
-        if(intent.getStringExtra("checkedDepartments") != null){
-            checkedDepartments = intent.getStringExtra("checkedDepartments");
-        }
+
         eventsTextView = findViewById(R.id.eventsTextView);
-        if(intent.getStringExtra("event") != null){
-            events = intent.getStringExtra("event");
-            eventsTextView.setText(events);
-        }
-        if(intent.getStringExtra("colleagues") != null){
-            colleagues = intent.getStringExtra("colleagues");
-            Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
-        }
+        eventsTextView.setText(events);
 
 
         postButton = findViewById(R.id.postButton);

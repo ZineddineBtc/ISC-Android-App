@@ -8,13 +8,6 @@
     android:orientation="vertical"
     android:background="@drawable/white_background_border">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/include_events"
-        android:textColor="#000000"
-        android:textSize="17sp"
-        android:layout_margin="10dp"/>
     <ListView
         android:id="@+id/eventsListView"
         android:layout_width="match_parent"

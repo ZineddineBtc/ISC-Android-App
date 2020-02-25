@@ -100,6 +100,7 @@ public class CoreActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(
                 Html.fromHtml("<font color=\"#1976D2\"> Home </font>")
         );
+
     }
     public void setNotification(){
         openFragment(notificationFragment);
@@ -109,6 +110,9 @@ public class CoreActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(
                 Html.fromHtml("<font color=\"#1976D2\"> Notification </font>")
         );
+        HomeFragment.index = HomeFragment.postListView.getFirstVisiblePosition();
+        View v = HomeFragment.postListView.getChildAt(0);
+        HomeFragment.top = (v == null) ? 0 : (v.getTop() - HomeFragment.postListView.getPaddingTop());
     }
     public void setProfile(){
         openFragment(profileFragment);
@@ -118,6 +122,9 @@ public class CoreActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(
                 Html.fromHtml("<font color=\"#1976D2\"> Profile </font>")
         );
+        HomeFragment.index = HomeFragment.postListView.getFirstVisiblePosition();
+        View v = HomeFragment.postListView.getChildAt(0);
+        HomeFragment.top = (v == null) ? 0 : (v.getTop() - HomeFragment.postListView.getPaddingTop());
     }
 }
 

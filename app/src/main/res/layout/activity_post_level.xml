@@ -5,33 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Core.PostLevelActivity"
-    android:orientation="vertical"
-    android:background="@drawable/white_background_border">
+    android:background="@drawable/white_background_border"
+    android:orientation="vertical">
 
 
     <ListView
         android:id="@+id/postLevelListView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:elevation="0dp"
-        android:background="@drawable/white_background_border"
-        android:divider="#ffffff"/>
+        android:layout_height="wrap_content"
+        android:divider="#ffffff"
+        android:background="@drawable/white_background_border"/>
 
     <Button
         android:id="@+id/postLevelButton"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.06"
-        android:text="Include"
+        android:layout_height="wrap_content"
+        android:text="Check"
         android:textColor="#FFFFFF"
         android:background="@drawable/rounded_borders"
-        android:layout_gravity="end"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"/>
-
 </LinearLayout>

@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
-        android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:searchIcon="@drawable/ic_search_24dp"
         android:elevation="0dp"
         android:queryHint="@string/search"
@@ -29,10 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.7"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:elevation="0dp"
-        android:background="@drawable/white_background_border"
+        android:background="@drawable/white_background_no_border"
         android:divider="#ffffff"/>
 
     <Button
@@ -40,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.06"
+        android:minHeight="50dp"
         android:text="Tag"
         android:textColor="#FFFFFF"
         android:background="@drawable/rounded_borders"

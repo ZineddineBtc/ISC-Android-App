@@ -214,14 +214,26 @@
                         android:textSize="14sp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/userPostsTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Posts"
-                            android:textColor="#000000"
-                            android:textSize="16sp"
-                            android:gravity="center_vertical"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="0.8"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/profilePostsTextView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="My posts"
+                                android:textColor="#000000"
+                                android:textSize="16sp"
+                                android:gravity="center_vertical"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/showUserProfilePostIV"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.2"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_arrow_drop_down_24dp"/>
                     </LinearLayout>
                 </LinearLayout>
                 <com.example.isc.Core.NonScrollListView

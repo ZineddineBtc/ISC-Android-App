@@ -20,16 +20,18 @@
         <activity
             android:name=".Core.CoreActivity"
             android:label="@string/title_activity_core">
+
+        </activity>
+        <activity android:name=".LoginSignUp.FinishSignUpActivity" />
+        <activity android:name=".LoginSignUp.SignUpActivity" />
+        <activity android:name=".LoginSignUp.LoginActivity" />
+        <activity android:name=".Entry.EntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginSignUp.FinishSignUpActivity" />
-        <activity android:name=".LoginSignUp.SignUpActivity" />
-        <activity android:name=".LoginSignUp.LoginActivity" />
-        <activity android:name=".Entry.EntryActivity" />
     </application>
 
 </manifest>

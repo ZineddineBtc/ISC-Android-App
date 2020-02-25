@@ -38,8 +38,7 @@ public class EditPostActivity extends AppCompatActivity {
             epSpecifyDepartmentLL;
     TextView epPhotoLLTextView, epEventsTextView;
 
-    String epCheckedDepartments, epEvents ,epColleagues;
-    int position;
+    static String epCheckedDepartments="none", epEvents="", epColleagues="none";
 
     public static final int PICK_IMAGE = 1;
 
@@ -56,16 +55,10 @@ public class EditPostActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
 
         Intent intent = getIntent();
-        if(intent.getStringExtra("checkedDepartments") != null){
-            epCheckedDepartments = intent.getStringExtra("checkedDepartments");
-        }
+
         epEventsTextView = findViewById(R.id.epEventsTextView);
         if(intent.getStringExtra("event") != null){
-            epEvents = intent.getStringExtra("event");
             epEventsTextView.setText(epEvents);
-        }
-        if(intent.getStringExtra("colleagues") != null){
-            epColleagues = intent.getStringExtra("colleagues");
         }
         editPostButton = findViewById(R.id.editPostButton);
         editPostButton.setTextColor(Color.GRAY);

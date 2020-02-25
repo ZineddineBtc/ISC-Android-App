@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -23,13 +24,15 @@ public class ShowUserProfileActivity extends AppCompatActivity {
 
     TextView userName, userPosition, userStudentNumber, userEmail;
     LinearLayout userPostsLayout;
+    ImageView showProfilePostIV;
     FloatingActionButton userPostsUpButton;
     ScrollView scrollView;
-
 
     NonScrollListView userPostsListView;
     ShowUserProfilePostsListAdapter adapter;
     private ArrayList<MyPost> postArrayList;
+
+    Boolean userPostIsVisible = false;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -96,13 +99,24 @@ public class ShowUserProfileActivity extends AppCompatActivity {
         userPostsListView.setAdapter(adapter);
         userPostsListView.setScrollContainer(false);
 
+        showProfilePostIV = findViewById(R.id.showUserProfilePostIV);
+
         userPostsLayout = findViewById(R.id.userPostLayout);
         userPostsLayout.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
-                userPostsListView.setVisibility(View.VISIBLE);
-                userPostsUpButton.setVisibility(View.VISIBLE);
+                if(!userPostIsVisible){
+                    userPostIsVisible = true;
+                    showProfilePostIV.setImageResource(R.drawable.ic_arrow_drop_up_24dp);
+                    userPostsListView.setVisibility(View.VISIBLE);
+                    userPostsUpButton.setVisibility(View.VISIBLE);
+                }else{
+                    userPostIsVisible = false;
+                    showProfilePostIV.setImageResource(R.drawable.ic_arrow_drop_down_24dp);
+                    userPostsListView.setVisibility(View.GONE);
+                    userPostsUpButton.setVisibility(View.GONE);
+                }
             }
         });
         scrollView = findViewById(R.id.userScrollView);

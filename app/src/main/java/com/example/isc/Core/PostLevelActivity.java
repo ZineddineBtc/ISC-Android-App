@@ -70,9 +70,11 @@ public class PostLevelActivity extends AppCompatActivity {
                     departments.append("\n");
                 }
                 if(from.equals("create")){
-                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("checkedDepartments", departments.toString()));
+                    CreatePostActivity.checkedDepartments = departments.toString();
+                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
                 }else if(from.equals("edit")){
-                    startActivity(new Intent(getApplicationContext(), EditPostActivity.class).putExtra("checkedDepartments", departments.toString()));
+                    EditPostActivity.epCheckedDepartments = departments.toString();
+                    startActivity(new Intent(getApplicationContext(), EditPostActivity.class));
                 }
 
             }

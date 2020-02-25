@@ -69,9 +69,11 @@ public class TagColleagueActivity extends AppCompatActivity {
                     tagColleague.append("\n");
                 }
                 if(from.equals("create")){
-                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("colleagues", tagColleague.toString()));
+                    CreatePostActivity.colleagues = tagColleague.toString();
+                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
                 }else if(from.equals("edit")){
-                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("colleagues", tagColleague.toString()));
+                    EditPostActivity.epColleagues = tagColleague.toString();
+                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
                 }
 
             }

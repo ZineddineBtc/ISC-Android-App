@@ -22,11 +22,13 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private ListView postListView;
+    public static ListView postListView;
     private HomeListAdapter homeListAdapter;
     private ArrayList<MyPost> postArrayList;
     private FloatingActionButton createPostButton;
     private SwipeRefreshLayout pullToRefresh;
+
+    public static int index=0, top=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment {
         homeListAdapter = new HomeListAdapter(getContext(), R.layout.activity_home_list_adapter, postArrayList);
         postListView = fragmentView.findViewById(R.id.postListView);
         postListView.setAdapter(homeListAdapter);
+        postListView.setSelectionFromTop(index, top);
         postListView.setClickable(true);
         postListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

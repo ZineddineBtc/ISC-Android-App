@@ -64,9 +64,11 @@ public class IncludeEventActivity extends AppCompatActivity {
                     events.append(" ");
                 }
                 if (from.equals("create")){
-                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class).putExtra("event", events.toString()));
+                    CreatePostActivity.events = events.toString();
+                    startActivity(new Intent(getApplicationContext(), CreatePostActivity.class));
                 }else if(from.equals("edit")){
-                    startActivity(new Intent(getApplicationContext(), EditPostActivity.class).putExtra("event", events.toString()));
+                    EditPostActivity.epEvents = events.toString();
+                    startActivity(new Intent(getApplicationContext(), EditPostActivity.class));
                 }
             }
         });
