@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginSignUp.SignUpActivity">
+    tools:context=".LoginSignUp.SignUpActivity"
+    android:background="@drawable/white_background_border">
     <ImageButton
         android:id="@+id/button"
         android:onClick="toLogin"

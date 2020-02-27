@@ -2,11 +2,17 @@ package com.example.isc.LoginSignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -14,16 +20,21 @@ import android.widget.Toast;
 import com.example.isc.Core.CoreActivity;
 import com.example.isc.R;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class FinishSignUpActivity extends AppCompatActivity {
 
-    EditText signUpFullName;
+    ImageView signUpProfileImage, addSignUpProfileImageIV;
+    EditText signUpFullName, signUpStudentNumber;
     Spinner departmentSpinner;
     RadioGroup positionRadio;
 
     ArrayList<String> departments;
+
+    public static final int PICK_IMAGE = 1;
 
     //FirebaseAuth firebaseAuth;
     //FirebaseUser firebaseUser;
@@ -38,7 +49,10 @@ public class FinishSignUpActivity extends AppCompatActivity {
         //firebaseAuth = FirebaseAuth.getInstance();
         //firebaseUser = firebaseAuth.getCurrentUser();
 
+        signUpProfileImage = findViewById(R.id.signUpProfileImage);
+        addSignUpProfileImageIV = findViewById(R.id.addSignUpProfileImageIV);
         signUpFullName = findViewById(R.id.signUpFullName);
+        signUpStudentNumber = findViewById(R.id.signUpStudentNumber);
         departmentSpinner = findViewById(R.id.departmentSpinner);
         positionRadio = findViewById(R.id.position);
 
@@ -52,6 +66,14 @@ public class FinishSignUpActivity extends AppCompatActivity {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departments);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         departmentSpinner.setAdapter(dataAdapter);
+
+        signUpProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+                addSignUpProfileImageIV.setVisibility(View.GONE);
+            }
+        });
     }
 
     public void signUpUser(View view){
@@ -115,4 +137,41 @@ public class FinishSignUpActivity extends AppCompatActivity {
         String expression = "^[a-zA-Z\\s]+";
         return str.matches(expression);
     }
+
+    public void selectImage(){
+        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        getIntent.setType("image/*");
+
+        Intent pickIntent = new Intent(Intent.ACTION_PICK);
+        pickIntent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+
+        Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+
+        startActivityForResult(chooserIntent, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            InputStream inputStream = null;
+            try {
+                inputStream = getApplicationContext().getContentResolver().openInputStream(Objects.requireNonNull(data.getData()));
+            } catch (FileNotFoundException e) {
+                Toast.makeText(getApplicationContext(), "File not found exception", Toast.LENGTH_SHORT).show();
+            }
+            if(inputStream!=null){
+                Bitmap imageBitmap = BitmapFactory.decodeStream(inputStream);
+                signUpProfileImage.setImageBitmap(imageBitmap);
+            }else{
+                Toast.makeText(getApplicationContext(), "inputStream is null", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }

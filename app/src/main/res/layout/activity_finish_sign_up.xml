@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginSignUp.FinishSignUpActivity">
+    tools:context=".LoginSignUp.FinishSignUpActivity"
+    android:background="@drawable/white_background_border">
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/logoFinishSignUp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/img0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoFinishSignUp"
         app:layout_constraintVertical_bias="0.9"/>
 
     <TextView
@@ -38,7 +40,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textColor="#000000"
-        android:text="@string/enter_name_position"
+        android:text="@string/fill_in_info"
         app:layout_constraintBottom_toTopOf="@+id/form"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -64,6 +66,37 @@
         app:layout_constraintVertical_bias="0.5">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:id="@+id/addSignUpProfileImageIV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_add_blue_24dp"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/signUpProfileImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_account_circle_blue_24dp"
+                    app:civ_border_color="#ffffff"
+                    app:civ_border_width="0.5dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
         <EditText
             android:id="@+id/signUpFullName"
             android:layout_width="match_parent"
@@ -75,7 +108,17 @@
             android:layout_marginBottom="10dp"
             android:inputType="textPersonName"
             android:layout_gravity="center"/>
-
+        <EditText
+            android:id="@+id/signUpStudentNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="12"
+            android:hint="@string/student_number"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:inputType="numberDecimal"
+            android:layout_gravity="center"/>
         <LinearLayout
             android:paddingStart="10dp"
             android:paddingEnd="10dp"

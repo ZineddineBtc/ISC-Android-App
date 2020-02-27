@@ -107,7 +107,8 @@ public class HomeFragment extends Fragment {
     }
 
     public void createPost(){
-        startActivity(new Intent(getContext(), CreatePostActivity.class));
+        startActivity(new Intent(getContext(), CreatePostActivity.class)
+        .putExtra("from", "home"));
     }
     public void refreshData(){
         Toast.makeText(getContext(), "Refreshed", Toast.LENGTH_SHORT).show();

@@ -10,12 +10,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ import android.widget.Toast;
 
 import com.example.isc.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -45,11 +48,13 @@ public class CreatePostActivity extends AppCompatActivity {
     ImageView cpImage;
     Button postButton;
     ImageButton showPostLevelImageButton;
-    LinearLayout createPostLL, optionsLL, photoLL, includeEventLL, tagColleagueLL, specifyDepartmentLL;
+    LinearLayout createPostLL, optionsLL, photoLL, includeEventLL, tagColleagueLL,
+            specifyDepartmentLL;
     TextView photoLLTextView, eventsTextView;
-    public static final int PICK_IMAGE = 1;
 
-    static String checkedDepartments="none", events="", colleagues="none";
+    public static final int PICK_IMAGE = 1;
+    public static String checkedDepartments="none", events="", colleagues="none", textToPost="";
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -69,11 +74,21 @@ public class CreatePostActivity extends AppCompatActivity {
         eventsTextView.setText(events);
 
 
+
+
         postButton = findViewById(R.id.postButton);
         postButton.setTextColor(Color.GRAY);
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         cpImage = findViewById(R.id.cpImage);
+        try{
+            Bitmap bitmapImage = stringToBitmap(Objects.requireNonNull(prefs.getString("cpImage", null)));
+            cpImage.setImageBitmap(bitmapImage);
+        }catch (NullPointerException e){}
+
         showPostLevelImageButton = findViewById(R.id.showPostLevelImageButton);
         cpEditText = findViewById(R.id.cpEditText);
+        cpEditText.setText(textToPost);
         cpEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -87,6 +102,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 }else{
                     postButton.setTextColor(Color.BLACK);
                 }
+                textToPost = s.toString();
             }
         });
 
@@ -123,16 +139,6 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         });
 
-        if (savedInstanceState!=null){
-            checkedDepartments = savedInstanceState.getString("checkedDepartments");
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("checkedDepartments", checkedDepartments);
     }
 
     public void post(View view){
@@ -188,6 +194,7 @@ public class CreatePostActivity extends AppCompatActivity {
             startActivityForResult(chooserIntent, PICK_IMAGE);
         }else{
             cpImage.setImageDrawable(null);
+
             photoLLTextView.setText("Photo");
             if(cpEditText.getText().toString().trim().length()==0){
                 postButton.setTextColor(Color.GRAY);
@@ -210,7 +217,13 @@ public class CreatePostActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "File not found exception", Toast.LENGTH_SHORT).show();
             }
             if(inputStream!=null){
-                cpImage.setImageBitmap(BitmapFactory.decodeStream(inputStream));
+                Bitmap imageBitmap = BitmapFactory.decodeStream(inputStream);
+                cpImage.setImageBitmap(imageBitmap);
+
+                SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putString("cpImage", bitmapToString(imageBitmap));
+                editor.apply();
+
                 photoLLTextView.setText("Remove photo");
                 postButton.setTextColor(Color.BLACK);
             }else{
@@ -259,5 +272,15 @@ public class CreatePostActivity extends AppCompatActivity {
                 .show();
     }
 
+    public String bitmapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        return Base64.encodeToString(b, Base64.DEFAULT);
+    }
 
+    public Bitmap stringToBitmap(String s){
+        byte[] imageAsBytes = Base64.decode(s.getBytes(), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+    }
 }
